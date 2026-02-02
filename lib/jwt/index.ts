@@ -1,0 +1,5 @@
+export { setupJWT } from './setup.ts'
+export { registerJWT } from './register.ts'
+export { createVerificationHook } from './hooks.ts'
+export { FastifyJwtService, type FastifyJwtServiceOptions } from './service.ts'
+export { signToken, verifyToken, extractTokenFromHeader, type SignTokenOptions, type VerifyTokenOptions } from './core.ts'
