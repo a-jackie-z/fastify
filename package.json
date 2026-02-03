@@ -1,6 +1,6 @@
 {
   "name": "@a_jackie_z/fastify",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "A collection of Fastify plugins and utilities for building robust web applications.",
   "license": "MIT",
   "author": "Sang Lu <connect.with.sang@gmail.com>",
@@ -32,10 +32,10 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "@types/jsonwebtoken": "^9.0.7",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^25.2.0",
     "tsup": "^8.5.1",
-    "tsx": "^4.7.0",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   }
 }
