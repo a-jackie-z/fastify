@@ -1,5 +1,5 @@
 import { createFastifyPlugin } from '../plugin.ts'
-import { FastifyServer } from '../fastify.ts'
+import type { FastifyServer } from '../types.ts'
 
 export const healthPlugin = createFastifyPlugin((app: FastifyServer) => {
   app.get('/v1/health', {

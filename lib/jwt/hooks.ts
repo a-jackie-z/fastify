@@ -1,6 +1,6 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
-import { formatError } from '../response.ts'
 import type { FastifyJwtService } from './service.ts'
+import { formatError } from '@a_jackie_z/fastify-types'
 
 interface HookOptions {
   jwtService: FastifyJwtService

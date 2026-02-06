@@ -1,25 +1,5 @@
-import jwt, { Algorithm, JwtPayload, SignOptions, VerifyOptions } from 'jsonwebtoken'
-
-export interface SignTokenOptions {
-  algorithm?: Algorithm
-  iss?: string
-  aud?: string
-  header?: {
-    typ?: string
-    cty?: string
-    [key: string]: any
-  }
-}
-
-export interface VerifyTokenOptions {
-  allowedIss?: string[]
-  debug?: boolean
-  expectedHeader?: {
-    typ?: string
-    cty?: string
-    [key: string]: any
-  }
-}
+import jwt, { JwtPayload, SignOptions, VerifyOptions } from 'jsonwebtoken'
+import type { SignTokenOptions, VerifyTokenOptions } from '@a_jackie_z/fastify-types'
 
 /**
  * Sign a JWT token with kid, expiration, and optional JWT header parameters

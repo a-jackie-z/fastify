@@ -5,15 +5,22 @@ A collection of Fastify plugins and utilities for building robust web applicatio
 ## Installation
 
 ```bash
+# For server-side Fastify applications
 npm install @a_jackie_z/fastify
+
+# For frontend applications (types and schemas only)
+npm install @a_jackie_z/fastify-types
 ```
+
+> **Note:** If you're building a frontend application (React, Vue, etc.) and only need API types and response schemas, install `@a_jackie_z/fastify-types` instead. It's frontend-compatible and has no Node.js dependencies.
 
 ## Quick Start
 
 ### Basic Setup
 
 ```typescript
-import { createFastify, runFastify, formatSuccess } from '@a_jackie_z/fastify'
+import { createFastify, runFastify } from '@a_jackie_z/fastify'
+import { formatSuccess } from '@a_jackie_z/fastify-types'
 import { z } from 'zod'
 
 const app = await createFastify()
@@ -38,6 +45,38 @@ app.route({
 })
 
 await runFastify(app, '0.0.0.0', 3000)
+```
+
+## Package Architecture
+
+This package is split into two complementary packages for better frontend compatibility:
+
+### `@a_jackie_z/fastify` (Server Package)
+**For:** Node.js server applications
+**Includes:**
+- Fastify server creation and configuration (`createFastify`, `runFastify`)
+- JWT service with token generation/verification (`FastifyJwtService`)
+- Server-side crypto utilities (`generateId`, `generateSessionToken`)
+- Fastify plugins and middleware
+- Server-specific types (`CreateFastifyOptions`, `FastifyServer`)
+
+### `@a_jackie_z/fastify-types` (Types Package)  
+**For:** Frontend applications (React, Vue, etc.) and API contracts
+**Includes:**
+- Response types (`SuccessResponse`, `ErrorResponse`, `ValidationDetail`)
+- Response formatters (`formatSuccess`, `formatError`)  
+- Zod schemas (`successResponseSchema`, `errorResponseSchema`)
+- JWT configuration types (`TokenTypeConfig`, `SignTokenOptions`)
+- Error utilities (`createError`, `HTTP_STATUS_CODES`)
+- No Node.js dependencies - browser compatible
+
+```typescript
+// Server code
+import { createFastify, generateId } from '@a_jackie_z/fastify'
+import { formatSuccess } from '@a_jackie_z/fastify-types'
+
+// Frontend code  
+import { successResponseSchema, type SuccessResponse } from '@a_jackie_z/fastify-types'
 ```
 
 ## Features
@@ -147,6 +186,9 @@ The JWT system supports **dynamic token types** where each type can have its own
 Each token type is configured independently:
 
 ```typescript
+// TokenTypeConfig is available in @a_jackie_z/fastify-types
+import type { TokenTypeConfig } from '@a_jackie_z/fastify-types'
+
 interface TokenTypeConfig {
   headerName: string          // Header to extract token from
   expiresIn: string          // Token expiration (e.g., '15m', '7d', '1h')
@@ -229,7 +271,7 @@ app.get('/public', { config: { jwtTypes: false } }, handler)
 ### 2. Authentication Flow - Login Route
 
 ```typescript
-import { formatSuccess, formatError } from '@a_jackie_z/fastify'
+import { formatSuccess, formatError } from '@a_jackie_z/fastify-types'
 
 app.route({
   method: 'POST',
@@ -620,7 +662,7 @@ All responses should follow a consistent format using the provided utility funct
 #### Success Response Format
 
 ```typescript
-import { formatSuccess } from '@a_jackie_z/fastify'
+import { formatSuccess } from '@a_jackie_z/fastify-types'
 
 app.route({
   method: 'GET',
@@ -656,7 +698,7 @@ app.route({
 #### Error Response Format
 
 ```typescript
-import { formatError } from '@a_jackie_z/fastify'
+import { formatError } from '@a_jackie_z/fastify-types'
 
 app.route({
   method: 'DELETE',
@@ -801,11 +843,13 @@ config: { jwtTypes: ['access', 'service'] }
 
 ## API Reference
 
-### `createFastify(options?: CreateFastifyOptions): Promise<FastifyServer>`
+### Server Functions (`@a_jackie_z/fastify`)
+
+#### `createFastify(options?: CreateFastifyOptions): Promise<FastifyServer>`
 
 Creates and configures a Fastify server instance with Zod support and optional plugins.
 
-### `runFastify(fastify: FastifyServer, host: string, port: number): Promise<void>`
+#### `runFastify(fastify: FastifyServer, host: string, port: number): Promise<void>`
 
 Starts the Fastify server. Handles errors and exits the process if the server fails to start.
 
@@ -821,7 +865,22 @@ const app = await createFastify()
 await runFastify(app, '0.0.0.0', 3000)
 ```
 
-### Response Formatting Functions
+#### Server-Side Crypto Utilities
+
+```typescript
+import { generateId, generateSessionToken, generateSecureString } from '@a_jackie_z/fastify'
+
+// Generate 16-character alphanumeric ID
+const id = generateId() // "A1b2C3d4E5f6G7h8"
+
+// Generate 64-character hex session token  
+const token = generateSessionToken() // "abc123...def789"
+
+// Generate custom secure string
+const customId = generateSecureString(8, '0123456789') // "42875391"
+```
+
+### Response Formatting Functions (`@a_jackie_z/fastify-types`)
 
 #### `formatSuccess<T>(status: number, data: T): SuccessResponse<T>`
 
@@ -875,7 +934,7 @@ return reply.status(404).send(
 // Returns: { status: 404, success: false, error: 'Not Found', message: 'User not found' }
 ```
 
-### Response Type Interfaces
+### Response Type Interfaces (`@a_jackie_z/fastify-types`)
 
 #### `SuccessResponse<T>`
 ```typescript
@@ -905,7 +964,7 @@ interface ValidationDetail {
 }
 ```
 
-### Zod Schema Helpers
+### Zod Schema Helpers (`@a_jackie_z/fastify-types`)
 
 For defining response schemas with Zod validation:
 
@@ -921,7 +980,7 @@ Creates a Zod schema for standardized success responses.
 **Example:**
 ```typescript
 import { z } from 'zod'
-import { successResponseSchema } from '@a_jackie_z/fastify'
+import { successResponseSchema } from '@a_jackie_z/fastify-types'
 
 const userSchema = z.object({
   id: z.string(),
@@ -948,7 +1007,7 @@ Zod schema for standardized error responses. Matches `ErrorResponse` interface.
 
 **Example:**
 ```typescript
-import { errorResponseSchema } from '@a_jackie_z/fastify'
+import { errorResponseSchema } from '@a_jackie_z/fastify-types'
 
 const myRouteSchema = {
   response: {

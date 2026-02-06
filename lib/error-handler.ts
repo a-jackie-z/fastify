@@ -1,24 +1,5 @@
 import type { FastifyError, FastifyInstance } from 'fastify'
-import { formatError, type ValidationDetail } from './response.ts'
-
-export interface CreateErrorOptions {
-  statusCode?: number
-  message: string
-  name?: string
-}
-
-export function createError(options: CreateErrorOptions): FastifyError {
-  const {
-    statusCode = 500,
-    message,
-    name = 'Error',
-  } = options
-
-  const error = new Error(message) as FastifyError
-  error.statusCode = statusCode
-  error.name = name
-  return error
-}
+import { formatError, type ValidationDetail } from '@a_jackie_z/fastify-types'
 
 export function setupErrorHandler(fastify: FastifyInstance): void {
   fastify.setErrorHandler((error: FastifyError, request, reply) => {

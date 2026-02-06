@@ -1,5 +1,5 @@
 import { FastifyPluginCallback } from 'fastify'
-import { FastifyServer } from './fastify.ts'
+import type { FastifyServer } from './types.ts'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
 
 export function createFastifyPlugin(cb: FastifyPluginCallback) {

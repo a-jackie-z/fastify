@@ -8,24 +8,9 @@ import type {
 import type { RateLimitPluginOptions } from '@fastify/rate-limit'
 import type { ZodTypeProvider } from 'fastify-type-provider-zod'
 import type { IncomingMessage, ServerResponse } from 'node:http'
-import type { Algorithm } from 'jsonwebtoken'
-import type { z } from 'zod'
+import type { TokenTypeConfig } from '@a_jackie_z/fastify-types'
 import { FastifyJwtService } from './jwt/index.ts'
 
-export interface TokenTypeConfig {
-  headerName: string
-  expiresIn: string
-  payloadSchema?: z.ZodSchema<any>
-  algorithm?: Algorithm
-  iss?: string
-  aud?: string
-  allowedIss?: string[]
-  header?: {
-    typ?: string                    // Token type (typically 'JWT')
-    cty?: string                    // Content type (e.g., 'application/json')
-    [key: string]: any              // Custom header claims
-  }
-}
 
 // Extend Fastify types to include custom config
 declare module 'fastify' {

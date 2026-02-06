@@ -6,9 +6,9 @@ import { setupSwagger, setupSwaggerSecurityHook } from './swagger-setup.ts'
 import { setupJWT } from './jwt/setup.ts'
 import type { CreateFastifyOptions, FastifyServer } from './types.ts'
 
-// Re-export types and utilities from other modules
-export * from './response.ts'
-export * from './types.ts'
+// Re-export server-specific utilities
+export * from './crypto-utils.ts'
+
 
 export async function createFastify(options?: CreateFastifyOptions): Promise<FastifyServer> {
   const fastifyOptions: FastifyServerOptions = {}

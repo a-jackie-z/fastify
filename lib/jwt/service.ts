@@ -1,5 +1,5 @@
-import { signToken, verifyToken, extractTokenFromHeader, type SignTokenOptions, type VerifyTokenOptions } from './core.ts'
-import type { TokenTypeConfig } from '../types.ts'
+import { signToken, verifyToken, extractTokenFromHeader } from './core.ts'
+import type { TokenTypeConfig, SignTokenOptions, VerifyTokenOptions } from '@a_jackie_z/fastify-types'
 
 export interface FastifyJwtServiceOptions {
   secrets: Record<string, string>
