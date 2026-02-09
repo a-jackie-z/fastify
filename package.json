@@ -1,6 +1,6 @@
 {
   "name": "@a_jackie_z/fastify",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "A collection of Fastify plugins and utilities for building robust web applications.",
   "license": "MIT",
   "author": "Sang Lu <connect.with.sang@gmail.com>",
@@ -23,7 +23,7 @@
     "build": "tsup"
   },
   "dependencies": {
-    "@a_jackie_z/fastify-types": "^1.0.0",
+    "@a_jackie_z/fastify-types": "^1.0.1",
     "@fastify/rate-limit": "^10.3.0",
     "@fastify/swagger": "^9.6.1",
     "@fastify/swagger-ui": "^5.2.5",

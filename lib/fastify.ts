@@ -11,7 +11,10 @@ export * from './crypto-utils.ts'
 
 
 export async function createFastify(options?: CreateFastifyOptions): Promise<FastifyServer> {
-  const fastifyOptions: FastifyServerOptions = {}
+  const fastifyOptions: FastifyServerOptions = {
+    ...options?.requestTimeout ? {requestTimeout: options.requestTimeout} : {},
+    ...options?.bodyLimit ? {bodyLimit: options.bodyLimit} : {},
+  }
 
   if (options?.logger) {
     fastifyOptions.loggerInstance = options.logger

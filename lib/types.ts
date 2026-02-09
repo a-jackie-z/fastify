@@ -27,6 +27,8 @@ declare module 'fastify' {
 
 export interface CreateFastifyOptions {
   logger?: FastifyServerOptions['loggerInstance'],
+  requestTimeout?: number,
+  bodyLimit?: number,
   rateLimit?: {
     global?: RateLimitPluginOptions
   }
