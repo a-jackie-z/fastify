@@ -1,6 +1,6 @@
 {
   "name": "@a_jackie_z/fastify",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "A collection of Fastify plugins and utilities for building robust web applications.",
   "license": "MIT",
   "author": "Sang Lu <connect.with.sang@gmail.com>",
@@ -27,16 +27,16 @@
     "@fastify/rate-limit": "^10.3.0",
     "@fastify/swagger": "^9.7.0",
     "@fastify/swagger-ui": "^5.2.5",
-    "fastify": "^5.7.4",
+    "fastify": "^5.8.4",
     "fastify-type-provider-zod": "^6.1.0",
     "jsonwebtoken": "9.0.3",
     "zod": "^4.3.6"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.10",
-    "@types/node": "^25.3.0",
+    "@types/node": "^25.5.0",
     "tsup": "^8.5.1",
     "tsx": "^4.21.0",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.2"
   }
 }
